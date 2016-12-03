@@ -1,0 +1,44 @@
+{
+  "env": {
+    "browser": true
+  },
+
+  "globals": {
+    "_": true,
+    "$": false,
+    "jQuery": false,
+    "C": true,
+    "Chaldron": true,
+    "PNG": true,
+    "SG": true,
+    "AUI": false,
+    "Liferay": false,
+    "png": false,
+    "Backbone": false,
+    "require": false,
+    "define": false,
+    "alert": false,
+    "moment": true
+  },
+
+  "rules": {
+    "quotes": 0,
+    "no-alert":0,
+    "no-console": 0,
+    "no-global-strict": 0,
+    "no-new": 0,
+    "camelcase": 0,
+    "no-use-before-define": 0,
+
+    curly: 1,
+    dot-notation: 1,
+    "brace-style": [2, "1tbs", { "allowSingleLine": true }],
+    "indent": [2, 2],
+    "space-infix-ops": [2, {"int32Hint": false}],
+    "semi": [2, "always"],
+    "space-before-blocks": [2, "always"],
+    strict: [2, "global"]
+  },
+
+  extends: "eslint:recommended"
+}

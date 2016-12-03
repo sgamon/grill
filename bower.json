@@ -1,0 +1,57 @@
+{
+  "name": "bbq",
+  "version": "0.0.0",
+  "dependencies": {
+    "backbone": ">= 1.1.2",
+    "bootstrap": "~3.0.3",
+    "bootstrap-datepicker": "*",
+    "bootstrap-editable": "*",
+    "bootstrap-switch": "~3.2.2",
+    "d3": ">=v3",
+    "es5-shim": "~2.1.0",
+    "esprima": "~1.2.2",
+    "fastclick": "~1.0.6",
+    "jquery": "~1.11.0",
+    "jquery.fileDownload": "*",
+    "jquery.transit": "~0.9.12",
+    "layoutmanager": "0.9.5",
+    "lodash": "~3",
+    "marionette": "*",
+    "moment": "~2.7.0",
+    "mqGenie": "stowball/mqGenie",
+    "multiline": "~0.3.4",
+    "numeral": "~1.5.3",
+    "pnotify": "~2.0.1",
+    "requirejs": "~2.1.14",
+    "select2": "3.3.2",
+    "spin.js": "~2.0.1",
+    "tagit": "aehlke/tag-it",
+    "tap": "hughfdjackson/tap",
+    "underscore": "~1.6.0",
+    "placeholders": "~4.0.1"
+  },
+  "overrides": {
+    "_comment": "overrides is used by gulp-bower-files",
+    "bootstrap-editable": {
+      "_comment": "missing bower.json",
+      "main": "./src/js/bootstrap-editable.js"
+    },
+    "es5-shim": {
+      "_comment": "missing bower.json",
+      "main": "e5-shim.js"
+    },
+    "pnotify": {
+      "_comment": "override bower.json",
+      "main": "pnotify.core.js"
+    },
+    "spin.js": {
+      "_comment": "missing bower.json",
+      "main": "spin.js"
+    },
+    "tap": {
+      "_comment": "missing main in bower.json",
+      "main": "tap.js"
+    }
+  },
+  "testPath": "test/client/spec"
+}
