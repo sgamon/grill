@@ -32,10 +32,9 @@ function getMySQLResults(results, columnInfo) {
  * https://github.com/petkaantonov/bluebird/blob/master/API.md
  *
  */
-
 function queryDB(queryTemplate) {
   var parameters = Array.prototype.slice.call(arguments, 1);
-  var promise = tsdb.queryAsync(queryTemplate, parameters);
+  var promise = db.queryAsync(queryTemplate, parameters);
   return promise.spread(getMySQLResults).catch(logError);
 }
 

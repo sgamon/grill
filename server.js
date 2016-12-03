@@ -19,6 +19,7 @@ var uuid = require('uuid');
 
 // Application Config
 var config = require('./config');
+var log = require('./modules/logger')(config.log.error);
 process.env.NODE_ENV = (process.argv[2]) ? process.argv[2] : config.env;
 
 var app = express();
@@ -80,16 +81,14 @@ switch(app.get('env')) {
 //////////////////////////////////////////////////////////////////////////////
 // 11) Error handlers terminate the middleware chain
 
-bbqApp.use(function (req, res, next)
-{
-  res.status(404).render(404); // nothing to do, nowhere to go, ...
-});
-
-bbqApp.use(function (err, req, res, next)
-{
-  log.error(err);
-  res.type('text/plain').send(500, err.message);
-});
+// app.use(function (req, res, next) {
+//   res.status(404).render(404); // nothing to do, nowhere to go, ...
+// });
+//
+// app.use(function (err, req, res, next) {
+//   log.error(err);
+//   res.type('text/plain').send(500, err.message);
+// });
 
 
 

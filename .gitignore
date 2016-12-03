@@ -1,17 +1,25 @@
 node_modules
 heroku
+env.js
+*.log
+logs/*
+sessions/*
+
 # Webstorm
 .idea
+
 # Netbeans
 /nbproject/*
+
 # Cloud9
 .c9
+
 # Node.js Tools for Visual Studio
 .ntvs_analysis.dat
+
 # Visual Studio
 [Oo]bj/
-*/env.js
-*.log
+
 
 # OS generated files #
 ######################
