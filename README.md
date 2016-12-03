@@ -31,22 +31,22 @@ After the above setup, run this command to start the server:
     
 ## Configuration
 
-Configuration setting for your site are stored in ```config/env/env.js```.
+Configuration setting for your site are stored in `config/env/env.js`.
 Modify this file as needed.
 
 
 ## Static Files
 
 Static files (ie, html, css, js, images, etc) are served from the 
-```public``` folder. For example, if you put an image called ```logo.gif``` 
-in ``public/img```, you could refer to that image in html as
+`public` folder. For example, if you put an image called `logo.gif` 
+in `public/img`, you could refer to that image in html as
 
     <img src="/img/logo.gif">
     
     
 ## Dynamic Pages
 
-Dynamically created pages are stored in ``app```. Grill assumes you will use
+Dynamically created pages are stored in `app`. Grill assumes you will use
 a MVC design, and encourages that with corresponding folders:
 
     app/controllers
@@ -56,7 +56,7 @@ a MVC design, and encourages that with corresponding folders:
 ### Views
 
 Views use the underscore templating system. In this case, underscore templates 
-have been extended with an ```includes``` command, that will load other 
+have been extended with an `includes` command, that will load other 
 templates. See the documentation at 
 [express-lodash](https://www.npmjs.com/package/lodash-express).
     
@@ -66,7 +66,7 @@ templates. See the documentation at
 Unlike dynamic pages, web services expose a REST-style api, typically returning
 json payloads. Grill recommends that you implement web services using Swagger. 
 
-To help with this, Grill offers the ```ws``` folder, where you can store swagger
+To help with this, Grill offers the `ws` folder, where you can store swagger
 files. The same folder also has the swagger ui folder.
 
 
@@ -74,5 +74,5 @@ files. The same folder also has the swagger ui folder.
 
 Flyway is a java-based tool for applying changes to a relational database. Grill
 recommends this tool as a sane way to manage and version DB migrations. If you
-want to know more, check the README in the ```flyway``` folder.
+want to know more, check the README in the `flyway` folder.
 
