@@ -52,7 +52,10 @@ a MVC design, and encourages that with corresponding folders:
     app/controllers
     app/models
     app/views
-    
+
+Unlike a typical Express, Grill configures paths using the controller files. 
+See app/controllers/README.md for more info.
+ 
 ### Views
 
 Views use the underscore templating system. In this case, underscore templates 

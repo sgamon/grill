@@ -15,7 +15,7 @@ var csrf = require('csurf');
 var cors = require('cors');
 var errorHandler = require('errorhandler');
 var uuid = require('uuid');
-
+var recursiveReadSync = require('recursive-readdir-sync');
 
 // Application Config
 var config = require('./config');
@@ -23,6 +23,7 @@ var log = require('./modules/logger')(config.log.error);
 process.env.NODE_ENV = (process.argv[2]) ? process.argv[2] : config.env;
 
 var app = express();
+process.app = app;
 app.set('port', process.env.PORT || config.port);
 app.disable('x-powered-by');
 
@@ -78,23 +79,30 @@ switch(app.get('env')) {
     break;
 }
 
+
 //////////////////////////////////////////////////////////////////////////////
-// 11) Error handlers terminate the middleware chain
-
-// app.use(function (req, res, next) {
-//   res.status(404).render(404); // nothing to do, nowhere to go, ...
-// });
+// Load all paths from app/controllers. See app/controllers/README.md
 //
-// app.use(function (err, req, res, next) {
-//   log.error(err);
-//   res.type('text/plain').send(500, err.message);
-// });
+recursiveReadSync(path.join(__dirname, 'app', 'controllers'))
+  .filter((fname) => fname.endsWith('Controller.js'))
+  .forEach((fname) => require(fname))
+;
+
+
+//////////////////////////////////////////////////////////////////////////////
+// Error handlers terminate the middleware chain
+//
+app.use(function (req, res, next) {
+  res.status(404).render(404); // nothing to do, nowhere to go, ...
+});
+
+app.use(function (err, req, res, next) {
+  log.error(err);
+  res.type('text/plain').send(500, err.message);
+});
 
 
 
-app.get('*', renderHomePage);
-
-//var server = http.createServer(app);
 var boot = function() {
   app.listen(app.get('port'), function(){
     console.info('Express server listening on port ' + app.get('port'));
@@ -118,7 +126,3 @@ if (require.main === module) { // script run directly
   };
 }
 
-
-function renderHomePage(req, res) {
-  res.render('default', {title: 'Default Page'});
-}
