@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+This is a sample watchers.xml file, suitable for import into Webstorm. It
+configures Webstorm to automatically compile less and and js files, into
+plain css and es5.
+
+You may need to make changes for your environment.  See, for example,
+lines 30 and 49.
+-->
 <TaskOptions>
   <TaskOptions>
     <option name="arguments" value="--no-color $FileName$" />
@@ -38,7 +46,7 @@
       <array />
     </option>
     <option name="outputFromStdout" value="false" />
-    <option name="program" value="up-wurst/node_modules/babel-cli/bin/babel.js" />
+    <option name="program" value="grill/node_modules/babel-cli/bin/babel.js" />
     <option name="scopeName" value="Project Files" />
     <option name="trackOnlyRoot" value="true" />
     <option name="workingDir" value="$FileDir$" />
