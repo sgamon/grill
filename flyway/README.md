@@ -1,13 +1,13 @@
 # Database Changes
 
-For changes to the raas portal database, we use [flyway](http://flywaydb.org/). 
+For changes to the relational databases, we use [flyway](http://flywaydb.org/). 
 
 Create a sql script to change the db, and save that script to 
 ```flyway/sql```. 
 
 Begin your script with a ```USE``` statement, to select the database. Ie,
 
-    USE tsdb;
+    USE mydb;
 
 Be sure to follow the 
 [flyway naming conventions](http://flywaydb.org/documentation/migration/sql.html)
@@ -23,7 +23,7 @@ To deploy your sql migration, from the shell, type:
 
     flyway migrate
 
-Migrations are applied to to a default database, specified in:
+Migrations are applied to a single database server, specified in:
  
     flyway/conf/flyway.conf
     

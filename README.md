@@ -10,7 +10,7 @@ you, so you can have a full-featured web server without all the fiddly stuff.
 Grill is opinionated. Choices have been made for you. The choices include:
 
 * MVC design for dynamic pages
-* Underscore templates for dynamic views
+* Underscore and jsx templates for dynamic views
 * Swagger for Web Services
 * Flyway for relational DB migrations
 * Bunyan for logging
@@ -58,11 +58,23 @@ See app/controllers/README.md for more info.
  
 ### Views
 
-Views use the underscore templating system. In this case, underscore templates 
-have been extended with an `includes` command, that will load other 
-templates. See the documentation at 
-[express-lodash](https://www.npmjs.com/package/lodash-express).
+Views can be produced in either the underscore templating system, or jsx. The
+default is underscore templates, which use the `.html` extension.
+
+Underscore templates have been extended with an `includes` command, that will 
+load other templates. See the documentation at 
+[express-lodash](https://www.npmjs.com/package/lodash-express). Also, see
+`app/views/default.html` for an example.
     
+Jsx views use the `.jsx` extension. You must include the extension in the 
+calling controller code. See:
+
+    app/controllers/homeController.js
+    app/views/default.jsx
+    
+Jsx views use the 
+[express-react-views](https://www.npmjs.com/package/express-react-views) module.
+Read more docs there.
            
 ## Swagger for Web Services
 

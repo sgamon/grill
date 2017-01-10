@@ -28,9 +28,11 @@ app.set('port', process.env.PORT || config.port);
 app.disable('x-powered-by');
 
 // setup template system
-require('lodash-express')(app, 'html');
-app.set('view engine', 'html');
 app.set('views', path.join(__dirname, 'app', 'views'));
+app.set('view engine', 'html');
+
+require('lodash-express')(app, 'html');
+app.engine('jsx', require('express-react-views').createEngine());
 
 // middleware - order is significant!
 app.use(compression());
@@ -98,7 +100,7 @@ app.use(function (req, res, next) {
 
 app.use(function (err, req, res, next) {
   log.error(err);
-  res.type('text/plain').send(500, err.message);
+  res.type('text/plain').status(500).send(err.message);
 });
 
 
