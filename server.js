@@ -1,28 +1,32 @@
 'use strict';
 
-var express = require('express');
-var path = require('path');
-var compression = require('compression');
-var logger = require('morgan');
-var bodyParser = require('body-parser');
-var cookieParser = require('cookie-parser');
-var session = require('express-session');
-var store = {
+let express = require('express');
+
+let bodyParser = require('body-parser');
+let compression = require('compression');
+let cookieParser = require('cookie-parser');
+let cors = require('cors');
+let csrf = require('csurf');
+let errorHandler = require('errorhandler');
+let logger = require('morgan');
+let path = require('path');
+let recursiveReadSync = require('recursive-readdir-sync');
+let session = require('express-session');
+let store = {
   FileStore: require('session-file-store')(session),
   MySQLStore: require('express-mysql-session')(session)
 };
-var csrf = require('csurf');
-var cors = require('cors');
-var errorHandler = require('errorhandler');
-var uuid = require('uuid');
-var recursiveReadSync = require('recursive-readdir-sync');
+let swagger = require('swagger-node-express');
+let uuid = require('uuid');
+let ws = require('./modules/ws');
 
 // Application Config
-var config = require('./config');
-var log = require('./modules/logger')(config.log.error);
+let config = require('./config');
+let host = 'http://' + (config.host || 'localhost') + ':' + config.port;
+let log = require('./modules/logger')(config.log.error);
 process.env.NODE_ENV = (process.argv[2]) ? process.argv[2] : config.env;
 
-var app = express();
+let app = express();
 process.app = app;
 app.set('port', process.env.PORT || config.port);
 app.disable('x-powered-by');
@@ -81,6 +85,29 @@ switch(app.get('env')) {
     break;
 }
 
+//////////////////////////////////////////////////////////////////////////////
+//   Install swagger routes
+let swaggerui = express.static(path.normalize(__dirname + '/ws/swagger-ui'));
+swagger = swagger.createNew(app);
+
+let wsApp = express()
+  .use(function (req, res, next) {
+    wsSwagger.configure('http://' + req.headers.host, '1.0.0');
+    swaggerui(req, res, next);
+  })
+;
+
+let wsSwagger = swagger.createNew(wsApp);
+wsSwagger.configureSwaggerPaths('', 'api-docs', '');
+wsSwagger.configure(host + '/up/ws', '1.0.0');
+wsSwagger.setApiInfo({ title: 'UP Web Services', description: ws.links() });
+
+
+
+ws.install(swaggerui, wsApp); // autowire ws routes
+app.use('/ws', wsApp); // /ws is the root of all web services
+//   /Install swagger routes
+
 
 //////////////////////////////////////////////////////////////////////////////
 // Load all paths from app/controllers. See app/controllers/README.md
@@ -105,15 +132,15 @@ app.use(function (err, req, res, next) {
 
 
 
-var boot = function() {
+let boot = function() {
   app.listen(app.get('port'), function(){
-    console.info('Express server listening on port ' + app.get('port'));
+    console.info(`Express server listening at ${host}`);
   }).on('connection', function (socket) {
     socket.setTimeout(600 * 1000); // for longer running web services
   });
 };
 
-var shutdown = function() {
+let shutdown = function() {
   app.close();
 };
 
